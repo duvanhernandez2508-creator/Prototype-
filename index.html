@@ -6,46 +6,40 @@
   <title>AgroSahagún</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <style>
-    :root{--g:#166534;--l:#4d7c0f;--bg:#f5f8f4;--ink:#193126;--muted:#637267;--line:#d9e5da;--warn:#b7791f}
-    *{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px Arial,sans-serif;color:var(--ink)}
-    button,input,select,textarea{font:inherit}button{background:var(--g);color:#fff;border:0;border-radius:8px;padding:10px 13px;font-weight:bold;cursor:pointer}
-    button.secondary{background:#e3f0e4;color:var(--g)}button.text{background:transparent;color:var(--g);padding:3px}
-    input,select,textarea{width:100%;padding:10px;border:1px solid #b8cbbb;border-radius:7px;background:#fff}
-    label{display:grid;gap:5px;font-size:13px;font-weight:bold}.login{width:min(450px,calc(100% - 32px));margin:9vh auto;background:#fff;padding:32px;border-radius:18px;border:1px solid var(--line);box-shadow:0 12px 40px #17351b18}
-    .brand{display:flex;align-items:center;gap:10px}.brand i{font-style:normal;background:var(--g);color:#fff;padding:10px;border-radius:10px}.brand h1{margin:0}.muted{color:var(--muted);font-size:13px}
-    form{display:grid;gap:13px}.top{background:#fff;border-bottom:1px solid var(--line);padding:13px 24px;display:flex;justify-content:space-between;align-items:center}
-    .layout{display:grid;grid-template-columns:210px 1fr;max-width:1350px;margin:auto}.nav{padding:18px 10px;border-right:1px solid var(--line);min-height:calc(100vh - 65px)}
-    .nav button{display:block;width:100%;text-align:left;background:transparent;color:var(--ink);margin:2px 0}.nav button.active,.nav button:hover{background:#e4f0e4;color:var(--g)}
+    :root{--g:#166534;--bg:#f4f8f3;--ink:#183226;--line:#d9e6d9;--muted:#647468}*{box-sizing:border-box}
+    body{margin:0;font:15px Arial;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}button{border:0;border-radius:8px;padding:10px 13px;background:var(--g);color:#fff;font-weight:bold;cursor:pointer}.secondary{background:#e3f0e4;color:var(--g)}
+    input,select,textarea{width:100%;padding:10px;border:1px solid #b8cbbb;border-radius:7px}label{display:grid;gap:5px;font-size:13px;font-weight:bold}form{display:grid;gap:12px}
+    .login{max-width:430px;margin:9vh auto;background:#fff;padding:30px;border:1px solid var(--line);border-radius:16px}.top{padding:13px 24px;background:#fff;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+    .layout{display:grid;grid-template-columns:210px 1fr;max-width:1350px;margin:auto}.nav{padding:16px 10px;border-right:1px solid var(--line);min-height:calc(100vh - 65px)}.nav button{display:block;width:100%;margin:3px 0;text-align:left;background:transparent;color:var(--ink)}.nav button.active{background:#e4f0e4;color:var(--g)}
     main{padding:28px;max-width:1100px}.view{display:none}.view.active{display:block}.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}.head h2{margin:0}.actions{display:flex;gap:7px;flex-wrap:wrap}
-    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card,.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px}.card p{margin:0;color:var(--muted);font-size:13px}.card strong{font-size:25px}
-    .two{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.farms,.alerts,.activity{display:grid;gap:10px}.farm,.alert{background:#fff;border:1px solid var(--line);border-left:5px solid var(--l);border-radius:9px;padding:14px}.alert{border-left-color:var(--warn)}
-    .farm h3,.alert h3{margin:0 0 5px}.farm p,.alert p{margin:4px 0;color:var(--muted)}table{width:100%;border-collapse:collapse}th,td{padding:10px;text-align:left;border-bottom:1px solid var(--line);font-size:13px}
-    #map{height:500px;border-radius:9px}.badge{font-size:10px;background:#fff1ce;color:#805400;padding:4px 6px;border-radius:5px;font-weight:bold}.toast{position:fixed;right:20px;bottom:20px;background:var(--ink);color:#fff;padding:12px;border-radius:8px;opacity:0;transition:.2s}.toast.show{opacity:1}
-    dialog{border:0;border-radius:12px;width:min(450px,calc(100% - 24px));padding:22px;box-shadow:0 15px 50px #0004}dialog::backdrop{background:#0006}
-    @media(max-width:760px){.layout{display:block}.nav{display:flex;overflow:auto;min-height:0;border-bottom:1px solid var(--line);border-right:0;padding:8px}.nav button{width:auto;white-space:nowrap}.grid{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}main{padding:18px}#map{height:360px}.top{padding:12px}}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card,.panel,.farm,.alert{background:#fff;border:1px solid var(--line);border-radius:12px;padding:17px}.card p,.muted{color:var(--muted);font-size:13px;margin:0}.card strong{font-size:25px}.two{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.farms,.alerts{display:grid;gap:10px}.alert{border-left:5px solid #c77b18}
+    table{width:100%;border-collapse:collapse}th,td{padding:9px;text-align:left;border-bottom:1px solid var(--line);font-size:13px}#map{height:500px;border-radius:8px}.badge{font-size:10px;background:#fff1ce;color:#805400;padding:4px 6px;border-radius:4px}
+    dialog{border:0;border-radius:12px;padding:22px;width:min(430px,calc(100% - 25px))}dialog::backdrop{background:#0006}.toast{position:fixed;right:20px;bottom:20px;background:#183226;color:#fff;padding:12px;border-radius:8px;opacity:0;transition:.2s}.toast.show{opacity:1}
+    @media(max-width:760px){.layout{display:block}.nav{display:flex;overflow:auto;min-height:auto;border-bottom:1px solid var(--line);border-right:0}.nav button{width:auto;white-space:nowrap}.grid{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}main{padding:17px}#map{height:350px}}
   </style>
 </head>
 <body>
   <section id="login" class="login">
-    <div class="brand"><i>✦</i><div><h1>AgroSahagún</h1><small>Sahagún · Sabana de Córdoba</small></div></div>
-    <p>Plataforma de apoyo para el registro y monitoreo agrícola.</p>
+    <h1>✦ AgroSahagún</h1>
+    <p class="muted">Gestión agrícola para Sahagún y la Sabana de Córdoba.</p>
     <form id="loginForm">
-      <label>Usuario<input id="username" required autocomplete="username"></label>
-      <label>Contraseña<input id="password" type="password" required minlength="6" autocomplete="current-password"></label>
+      <label>Correo electrónico<input id="email" type="email" required></label>
+      <label>Contraseña<input id="password" type="password" required minlength="6"></label>
       <button>Iniciar sesión</button>
     </form>
-    <p class="muted">¿No tiene cuenta? <button class="text" id="openRegister" type="button">Crear usuario normal</button></p>
+    <p class="muted">¿Nuevo usuario? <button id="registerButton" type="button" class="secondary">Crear cuenta</button></p>
   </section>
 
   <section id="app" hidden>
     <header class="top">
-      <div class="brand"><i>✦</i><strong>AgroSahagún<br><small id="userLabel"></small></strong></div>
-      <button class="text" id="logout">Cerrar sesión</button>
+      <strong>✦ AgroSahagún<br><small id="userLabel"></small></strong>
+      <button id="logoutButton" class="secondary">Cerrar sesión</button>
     </header>
+
     <div class="layout">
       <nav class="nav">
         <button class="active" data-view="dashboard">Resumen</button>
-        <button data-view="farms">Fincas y cultivos</button>
+        <button data-view="farms">Fincas</button>
         <button data-view="entries">Registrar datos</button>
         <button data-view="mapView">Mapa satelital</button>
         <button data-view="alerts">Alertas</button>
@@ -53,15 +47,19 @@
 
       <main>
         <section id="dashboard" class="view active">
-          <div class="head"><div><h2>Situación de las fincas</h2><small>Panel de control</small></div>
-            <div class="actions"><button class="secondary" id="csv">Descargar reporte CSV</button><button class="secondary" id="certificate">Descargar certificado</button></div>
+          <div class="head">
+            <div><h2>Panel de control</h2><small>Información agrícola registrada</small></div>
+            <div class="actions">
+              <button id="csvButton" class="secondary">Descargar CSV</button>
+              <button id="certificateButton" class="secondary">Descargar certificado</button>
+            </div>
           </div>
           <div id="kpis" class="grid"></div>
-          <div class="panel"><h3>Estado por cultivo <span class="badge">DATOS DEMO</span></h3><div id="crops" class="grid"></div></div>
+          <div class="panel"><h3>Estado de cultivos <span class="badge">REGISTROS DE USUARIO</span></h3><div id="cropCards" class="grid"></div></div>
         </section>
 
         <section id="farms" class="view">
-          <div class="head"><h2>Fincas y cultivos</h2><button id="openFarm">+ Registrar finca</button></div>
+          <div class="head"><h2>Fincas y cultivos</h2><button id="newFarmButton">+ Registrar finca</button></div>
           <div id="farmList" class="farms"></div>
         </section>
 
@@ -69,35 +67,32 @@
           <div class="head"><h2>Registrar observación</h2><span class="badge">INGRESO MANUAL</span></div>
           <div class="two">
             <form id="entryForm" class="panel">
-              <h3>Lectura de campo</h3>
-              <label>Finca<select id="entryFarm"></select></label>
-              <label>Tipo<select id="entryType"><option value="moisture">Humedad del suelo (%)</option><option value="weather">Temperatura (°C)</option><option value="note">Observación</option></select></label>
-              <label id="valueBox">Valor<input id="entryValue" type="number" step="0.1"></label>
-              <label>Fecha<input id="entryTime" type="datetime-local" required></label>
+              <label>Finca<select id="entryFarm" required></select></label>
+              <label>Tipo de dato<select id="entryType"><option value="Humedad del suelo">Humedad del suelo (%)</option><option value="Temperatura">Temperatura (°C)</option><option value="Observación">Observación</option></select></label>
+              <label id="valueArea">Valor<input id="entryValue" type="number" step="0.1"></label>
               <label>Nota<textarea id="entryNote"></textarea></label>
               <button>Guardar registro</button>
             </form>
-            <div class="panel"><h3>Importante</h3><p class="muted">Los datos iniciales son simulados. Los registros creados por el usuario quedan identificados como ingreso manual.</p></div>
+            <div class="panel"><h3>Uso responsable</h3><p class="muted">Verifique en campo las lecturas antes de tomar decisiones de riego. Los registros manuales no sustituyen instrumentos calibrados.</p></div>
           </div>
-          <div class="panel"><h3>Registros</h3><div id="records"></div></div>
+          <div class="panel"><h3>Historial</h3><div id="recordList"></div></div>
         </section>
 
         <section id="mapView" class="view">
-          <div class="head"><div><h2>Mapa satelital</h2><small>Selección y verificación de zonas</small></div><span class="badge">REQUIERE INTERNET</span></div>
+          <div class="head"><h2>Mapa satelital</h2><span class="badge">REQUIERE INTERNET</span></div>
           <div class="two">
-            <div class="panel"><div id="map"></div><p class="muted">La imagen es de referencia y no confirma límites de propiedad.</p></div>
+            <div class="panel"><div id="map"></div><p class="muted">El mapa es orientativo y no valida límites de propiedad.</p></div>
             <form id="zoneForm" class="panel">
-              <h3>Guardar zona</h3>
-              <label>Finca<select id="zoneFarm"></select></label>
+              <label>Finca<select id="zoneFarm" required></select></label>
               <label>Latitud<input id="zoneLat" type="number" step="0.000001" required></label>
               <label>Longitud<input id="zoneLng" type="number" step="0.000001" required></label>
-              <label>Radio aproximado (m)<input id="zoneRadius" type="number" min="20" value="250" required></label>
+              <label>Radio aproximado (metros)<input id="zoneRadius" type="number" min="20" value="250" required></label>
               <label>Descripción<textarea id="zoneNote"></textarea></label>
               <button>Guardar zona</button>
-              <button class="secondary" id="location" type="button">Usar mi ubicación</button>
+              <button id="locationButton" type="button" class="secondary">Usar mi ubicación</button>
             </form>
           </div>
-          <div class="panel"><h3>Zonas registradas</h3><div id="zones" class="activity"></div></div>
+          <div class="panel"><h3>Zonas guardadas</h3><div id="zoneList"></div></div>
         </section>
 
         <section id="alerts" class="view"><h2>Alertas y recomendaciones</h2><div id="alertList" class="alerts"></div></section>
@@ -107,105 +102,346 @@
 
   <dialog id="registerDialog">
     <form id="registerForm">
-      <h3>Crear usuario normal</h3>
-      <label>Nombre completo<input id="newName" required></label>
-      <label>Usuario<input id="newUser" required></label>
-      <label>Contraseña<input id="newPass" type="password" minlength="6" required></label>
-      <button>Guardar usuario</button>
-      <button class="secondary" id="closeRegister" type="button">Cancelar</button>
+      <h3>Crear cuenta</h3>
+      <label>Nombre completo<input id="registerName" required></label>
+      <label>Correo electrónico<input id="registerEmail" type="email" required></label>
+      <label>Contraseña<input id="registerPassword" type="password" minlength="6" required></label>
+      <button>Crear usuario</button>
+      <button id="closeRegister" type="button" class="secondary">Cancelar</button>
     </form>
   </dialog>
 
   <dialog id="farmDialog">
     <form id="farmForm">
       <h3>Registrar finca</h3>
-      <label>Nombre<input id="farmName" required></label>
-      <label>Cultivo<input id="farmCrop" required></label>
-      <label>Área en hectáreas<input id="farmArea" type="number" min="0.1" step="0.1" required></label>
+      <label>Nombre de la finca<input id="farmName" required></label>
+      <label>Cultivo principal<input id="farmCrop" required></label>
+      <label>Área aproximada (ha)<input id="farmArea" type="number" step="0.1" min="0.1" required></label>
       <button>Guardar finca</button>
-      <button class="secondary" id="closeFarm" type="button">Cancelar</button>
+      <button id="closeFarm" type="button" class="secondary">Cancelar</button>
     </form>
   </dialog>
 
   <div id="toast" class="toast"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    const DATA="agrosahagun_data", USERS="agrosahagun_users";
-    const admin={id:"admin",name:"Administrador",username:"adm",password:"Agro2026",role:"admin"};
-    const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-    let state=JSON.parse(localStorage.getItem(DATA)||"null")||{
-      user:null,
-      farms:[{id:"f1",name:"La Esperanza",crop:"Maíz",area:2.5,moisture:24},{id:"f2",name:"El Recuerdo",crop:"Yuca",area:1.8,moisture:38}],
-      entries:[{farmId:"f1",type:"Humedad del suelo",value:"24%",at:"2026-11-09T08:30",source:"DEMO / SIMULADO"},{farmId:"f2",type:"Temperatura",value:"29 °C",at:"2026-11-09T10:00",source:"DEMO / SIMULADO"}],
-      zones:[]
-    };
-    state.zones??=[];
-    const save=()=>localStorage.setItem(DATA,JSON.stringify(state));
-    const users=()=>JSON.parse(localStorage.getItem(USERS)||"[]");
-    const saveUsers=x=>localStorage.setItem(USERS,JSON.stringify(x));
-    const esc=x=>String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-    const date=x=>new Intl.DateTimeFormat("es-CO",{dateStyle:"medium",timeStyle:"short"}).format(new Date(x));
-    function toast(x){$("#toast").textContent=x;$("#toast").classList.add("show");setTimeout(()=>$("#toast").classList.remove("show"),2600)}
-    let map,zoneLayer,pin;
 
-    function mapStart(){
-      if(!map){
-        map=L.map("map").setView([8.946,-75.445],12);
-        L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",{maxZoom:19,attribution:"© Esri"}).addTo(map);
-        zoneLayer=L.layerGroup().addTo(map);
-        map.on("click",e=>setPoint(e.latlng.lat,e.latlng.lng));
-      }
-      drawZones();setTimeout(()=>map.invalidateSize(),120);
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+    import {
+      getAuth, onAuthStateChanged, signInWithEmailAndPassword,
+      createUserWithEmailAndPassword, signOut, updateProfile
+    } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+    import {
+      getFirestore, collection, addDoc, setDoc, doc, onSnapshot,
+      query, where, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAUiah4yO9fa7QyMzJpoDjdIhYCGNcS2AI",
+      authDomain: "prototype-6b057.firebaseapp.com",
+      projectId: "prototype-6b057",
+      storageBucket: "prototype-6b057.firebasestorage.app",
+      messagingSenderId: "812275960091",
+      appId: "1:812275960091:web:fa2dfc445e4fa0b11f6bbe",
+      measurementId: "G-796C25FDBW"
+    };
+
+    const ADMIN_EMAIL = "admin@agrosahagun.com";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const $ = selector => document.querySelector(selector);
+    const $$ = selector => [...document.querySelectorAll(selector)];
+    const esc = value => String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+    const toast = message => {
+      $("#toast").textContent = message;
+      $("#toast").classList.add("show");
+      setTimeout(() => $("#toast").classList.remove("show"), 2800);
+    };
+
+    let currentUser = null;
+    let farms = [];
+    let entries = [];
+    let zones = [];
+    let map;
+    let mapZones;
+    let selectedPin;
+
+    function isAdmin() {
+      return currentUser?.email === ADMIN_EMAIL;
     }
-    function setPoint(lat,lng){
-      $("#zoneLat").value=Number(lat).toFixed(6);$("#zoneLng").value=Number(lng).toFixed(6);
-      if(pin)pin.remove();pin=L.marker([lat,lng]).addTo(map).bindPopup("Zona seleccionada").openPopup();
+
+    function userQuery(collectionName) {
+      return isAdmin()
+        ? collection(db, collectionName)
+        : query(collection(db, collectionName), where("ownerId", "==", currentUser.uid));
     }
-    function drawZones(){
-      if(!map)return;zoneLayer.clearLayers();
-      state.zones.forEach(z=>{let f=state.farms.find(x=>x.id===z.farmId);L.circle([z.lat,z.lng],{radius:z.radius,color:"#166534",fillColor:"#4d7c0f",fillOpacity:.25}).bindPopup("<b>"+esc(f?.name||"Finca")+"</b><br>"+esc(z.note||"Zona de trabajo")).addTo(zoneLayer)});
-    }
-    function render(){
-      if(!state.user)return;
-      $("#userLabel").textContent=(state.user.role==="admin"?"Administrador":"Usuario")+" · "+state.user.name;
-      let low=state.farms.filter(f=>Number(f.moisture)<30).length;
-      $("#kpis").innerHTML=[["Fincas",state.farms.length],["Área",state.farms.reduce((a,f)=>a+Number(f.area),0).toFixed(1)+" ha"],["Con atención",low],["Registros",state.entries.length]].map(x=>`<div class="card"><p>${x[0]}</p><strong>${x[1]}</strong></div>`).join("");
-      $("#crops").innerHTML=state.farms.map(f=>`<div class="card"><strong>${esc(f.crop)}</strong><p>${esc(f.name)} · ${f.area} ha</p><p>Humedad: ${f.moisture}%</p></div>`).join("");
-      $("#farmList").innerHTML=state.farms.map(f=>`<article class="farm"><h3>${esc(f.name)}</h3><p>${esc(f.crop)} · ${f.area} ha · Humedad: ${f.moisture}%</p></article>`).join("");
-      let opts=state.farms.map(f=>`<option value="${f.id}">${esc(f.name)} — ${esc(f.crop)}</option>`).join("");
-      $("#entryFarm").innerHTML=opts;$("#zoneFarm").innerHTML=opts;
-      $("#records").innerHTML=`<table><tr><th>Fecha</th><th>Finca</th><th>Dato</th><th>Valor</th><th>Origen</th></tr>${state.entries.slice().reverse().map(e=>`<tr><td>${date(e.at)}</td><td>${esc(state.farms.find(f=>f.id===e.farmId)?.name)}</td><td>${esc(e.type)}</td><td>${esc(e.value)}</td><td>${esc(e.source)}</td></tr>`).join("")}</table>`;
-      $("#alertList").innerHTML=state.farms.filter(f=>Number(f.moisture)<30).map(f=>`<article class="alert"><h3>Revisar humedad en ${esc(f.name)}</h3><p>La lectura disponible es ${f.moisture}%. Verifique el terreno antes de tomar una decisión de riego.</p></article>`).join("")||"<p>No hay alertas.</p>";
-      $("#zones").innerHTML=state.zones.map(z=>{let f=state.farms.find(x=>x.id===z.farmId);return `<div><b>${esc(f?.name)}</b> · ${Number(z.lat).toFixed(5)}, ${Number(z.lng).toFixed(5)} · Radio ${z.radius} m</div>`}).join("")||"<p class='muted'>Aún no hay zonas guardadas.</p>";
+
+    function render() {
+      $("#userLabel").textContent = `${isAdmin() ? "Administrador" : "Usuario"} · ${currentUser.displayName || currentUser.email}`;
+
+      const attention = farms.filter(farm => Number(farm.moisture || 0) < 30).length;
+      $("#kpis").innerHTML = [
+        ["Fincas registradas", farms.length],
+        ["Área productiva", `${farms.reduce((total, farm) => total + Number(farm.area || 0), 0).toFixed(1)} ha`],
+        ["Cultivos con atención", attention],
+        ["Registros", entries.length]
+      ].map(item => `<div class="card"><p>${item[0]}</p><strong>${item[1]}</strong></div>`).join("");
+
+      $("#cropCards").innerHTML = farms.map(farm => `
+        <div class="card">
+          <strong>${esc(farm.crop)}</strong>
+          <p>${esc(farm.name)} · ${farm.area} ha</p>
+          <p>Humedad: ${farm.moisture ?? "Sin registro"}${farm.moisture != null ? "%" : ""}</p>
+        </div>
+      `).join("") || "<p class='muted'>No hay fincas registradas.</p>";
+
+      $("#farmList").innerHTML = farms.map(farm => `
+        <article class="farm">
+          <h3>${esc(farm.name)}</h3>
+          <p>${esc(farm.crop)} · ${farm.area} ha · Humedad: ${farm.moisture ?? "Sin registro"}${farm.moisture != null ? "%" : ""}</p>
+        </article>
+      `).join("") || "<p>No hay fincas registradas.</p>";
+
+      const options = farms.map(farm => `<option value="${farm.id}">${esc(farm.name)} — ${esc(farm.crop)}</option>`).join("");
+      $("#entryFarm").innerHTML = options;
+      $("#zoneFarm").innerHTML = options;
+
+      $("#recordList").innerHTML = `
+        <table>
+          <tr><th>Fecha</th><th>Finca</th><th>Dato</th><th>Valor</th><th>Nota</th></tr>
+          ${entries.map(entry => `
+            <tr>
+              <td>${entry.createdAt?.toDate ? entry.createdAt.toDate().toLocaleString("es-CO") : "Pendiente"}</td>
+              <td>${esc(farms.find(farm => farm.id === entry.farmId)?.name || "Finca")}</td>
+              <td>${esc(entry.type)}</td>
+              <td>${esc(entry.value)}</td>
+              <td>${esc(entry.note || "")}</td>
+            </tr>
+          `).join("")}
+        </table>`;
+
+      $("#alertList").innerHTML = farms.filter(farm => Number(farm.moisture || 0) < 30).map(farm => `
+        <article class="alert">
+          <h3>Revisar humedad en ${esc(farm.name)}</h3>
+          <p>La humedad registrada es ${farm.moisture}%. Confirme el estado en el terreno antes de realizar riego.</p>
+        </article>
+      `).join("") || "<p>No hay alertas activas.</p>";
+
+      $("#zoneList").innerHTML = zones.map(zone => `
+        <p><strong>${esc(farms.find(farm => farm.id === zone.farmId)?.name || "Finca")}</strong> ·
+        ${Number(zone.lat).toFixed(5)}, ${Number(zone.lng).toFixed(5)} · Radio: ${zone.radius} m</p>
+      `).join("") || "<p class='muted'>No hay zonas guardadas.</p>";
+
       drawZones();
     }
-    function openApp(){$("#login").hidden=true;$("#app").hidden=false;render()}
-    function csv(){
-      let rows=[["Fecha","Finca","Cultivo","Dato","Valor","Origen"],...state.entries.map(e=>{let f=state.farms.find(x=>x.id===e.farmId)||{};return[e.at,f.name||"",f.crop||"",e.type,e.value,e.source]})];
-      let text=rows.map(r=>r.map(x=>`"${String(x).replaceAll('"','""')}"`).join(",")).join("\n");
-      let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"text/csv;charset=utf-8"}));a.download="reporte-agrosahagun.csv";a.click();URL.revokeObjectURL(a.href);
-    }
-    function certificate(){
-      let d=new Intl.DateTimeFormat("es-CO",{dateStyle:"long"}).format(new Date());
-      let html=`<!doctype html><html><head><meta charset="utf-8"><title>Certificado AgroSahagún</title><style>body{font-family:Arial;padding:50px;text-align:center;background:#f2f7ee}.box{background:#fff;border:10px solid #166534;padding:60px;max-width:800px;margin:auto}h1{color:#166534}</style></head><body><div class="box"><h1>✦ Certificado de uso</h1><h2>AgroSahagún</h2><p>Se certifica que</p><h2>${esc(state.user.name)}</h2><p>participó en el uso del prototipo digital AgroSahagún para el apoyo de la gestión agrícola en Sahagún y la Sabana de Córdoba.</p><p>Fecha: ${d}</p><hr><p>AgroSahagún · Prototipo académico</p></div><script>window.onload=()=>window.print()<\/script></body></html>`;
-      let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([html],{type:"text/html"}));a.download="certificado-agrosahagun.html";a.click();URL.revokeObjectURL(a.href);
+
+    function startMap() {
+      if (!map) {
+        map = L.map("map").setView([8.946, -75.445], 12);
+        L.tileLayer(
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+          { maxZoom: 19, attribution: "© Esri" }
+        ).addTo(map);
+        mapZones = L.layerGroup().addTo(map);
+        map.on("click", event => setCoordinates(event.latlng.lat, event.latlng.lng));
+      }
+      drawZones();
+      setTimeout(() => map.invalidateSize(), 100);
     }
 
-    $("#loginForm").onsubmit=e=>{e.preventDefault();let u=$("#username").value.trim().toLowerCase(),p=$("#password").value;let account=(u===admin.username&&p===admin.password)?admin:users().find(x=>x.username===u&&x.password===p);if(!account)return toast("Usuario o contraseña incorrectos.");state.user=account;save();openApp()};
-    $("#openRegister").onclick=()=>$("#registerDialog").showModal();$("#closeRegister").onclick=()=>$("#registerDialog").close();
-    $("#registerForm").onsubmit=e=>{e.preventDefault();let username=$("#newUser").value.trim().toLowerCase();if(username==="adm"||users().some(x=>x.username===username))return toast("Ese usuario ya existe.");saveUsers([{id:"user",name:$("#newName").value.trim(),username,password:$("#newPass").value,role:"user"}]);$("#registerDialog").close();toast("Usuario creado. Ahora inicie sesión.");e.target.reset()};
-    $("#logout").onclick=()=>{state.user=null;save();$("#app").hidden=true;$("#login").hidden=false};
-    $$(".nav button").forEach(b=>b.onclick=()=>{$$(".view").forEach(v=>v.classList.toggle("active",v.id===b.dataset.view));$$(".nav button").forEach(x=>x.classList.toggle("active",x===b));if(b.dataset.view==="mapView")mapStart()});
-    $("#openFarm").onclick=()=>$("#farmDialog").showModal();$("#closeFarm").onclick=()=>$("#farmDialog").close();
-    $("#farmForm").onsubmit=e=>{e.preventDefault();state.farms.push({id:"f"+Date.now(),name:$("#farmName").value,crop:$("#farmCrop").value,area:$("#farmArea").value,moisture:0});save();$("#farmDialog").close();e.target.reset();render();toast("Finca guardada.")};
-    $("#entryType").onchange=()=>$("#valueBox").hidden=$("#entryType").value==="note";
-    $("#entryForm").onsubmit=e=>{e.preventDefault();let type=$("#entryType").value,f=state.farms.find(x=>x.id===$("#entryFarm").value),raw=type==="note"?$("#entryNote").value:$("#entryValue").value,val=type==="moisture"?raw+"%":type==="weather"?raw+" °C":raw;if(type==="moisture")f.moisture=raw;state.entries.push({farmId:f.id,type:type==="moisture"?"Humedad del suelo":type==="weather"?"Temperatura":"Observación",value:val,at:$("#entryTime").value,source:"INGRESO MANUAL"});save();render();toast("Registro guardado.")};
-    $("#zoneForm").onsubmit=e=>{e.preventDefault();state.zones.push({farmId:$("#zoneFarm").value,lat:Number($("#zoneLat").value),lng:Number($("#zoneLng").value),radius:Number($("#zoneRadius").value),note:$("#zoneNote").value});save();render();toast("Zona guardada.")};
-    $("#location").onclick=()=>navigator.geolocation?navigator.geolocation.getCurrentPosition(x=>{mapStart();setPoint(x.coords.latitude,x.coords.longitude);map.setView([x.coords.latitude,x.coords.longitude],16)},()=>toast("No se pudo obtener la ubicación.")):toast("Ubicación no disponible.");
-    $("#csv").onclick=csv;$("#certificate").onclick=certificate;
-    $("#entryTime").value=new Date().toISOString().slice(0,16);
-    if(state.user)openApp();
+    function setCoordinates(lat, lng) {
+      $("#zoneLat").value = Number(lat).toFixed(6);
+      $("#zoneLng").value = Number(lng).toFixed(6);
+      if (selectedPin) selectedPin.remove();
+      selectedPin = L.marker([lat, lng]).addTo(map).bindPopup("Zona seleccionada").openPopup();
+    }
+
+    function drawZones() {
+      if (!mapZones) return;
+      mapZones.clearLayers();
+      zones.forEach(zone => {
+        L.circle([zone.lat, zone.lng], {
+          radius: Number(zone.radius),
+          color: "#166534",
+          fillColor: "#4d7c0f",
+          fillOpacity: 0.25
+        }).bindPopup(esc(zone.note || "Zona de trabajo")).addTo(mapZones);
+      });
+    }
+
+    function listenData() {
+      onSnapshot(userQuery("farms"), snapshot => {
+        farms = snapshot.docs.map(item => ({ id: item.id, ...item.data() }));
+        render();
+      });
+
+      onSnapshot(userQuery("entries"), snapshot => {
+        entries = snapshot.docs.map(item => ({ id: item.id, ...item.data() }));
+        render();
+      });
+
+      onSnapshot(userQuery("zones"), snapshot => {
+        zones = snapshot.docs.map(item => ({ id: item.id, ...item.data() }));
+        render();
+      });
+    }
+
+    function downloadCsv() {
+      const rows = [
+        ["Fecha", "Finca", "Cultivo", "Dato", "Valor", "Nota"],
+        ...entries.map(entry => {
+          const farm = farms.find(item => item.id === entry.farmId) || {};
+          return [
+            entry.createdAt?.toDate ? entry.createdAt.toDate().toLocaleString("es-CO") : "",
+            farm.name || "", farm.crop || "", entry.type, entry.value, entry.note || ""
+          ];
+        })
+      ];
+
+      const csv = rows.map(row => row.map(value => `"${String(value).replaceAll('"', '""')}"`).join(",")).join("\n");
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8;" }));
+      link.download = "reporte-agrosahagun.csv";
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    function downloadCertificate() {
+      const date = new Intl.DateTimeFormat("es-CO", { dateStyle: "long" }).format(new Date());
+      const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Certificado AgroSahagún</title><style>body{font-family:Arial;padding:50px;text-align:center;background:#f2f7ee}.box{max-width:780px;margin:auto;padding:60px;background:#fff;border:10px solid #166534}h1{color:#166534}</style></head><body><main class="box"><h1>✦ Certificado de uso</h1><h2>AgroSahagún</h2><p>Se certifica que</p><h2>${esc(currentUser.displayName || currentUser.email)}</h2><p>participó en el uso del prototipo digital AgroSahagún para el apoyo de la gestión agrícola.</p><p>Fecha de emisión: ${date}</p><hr><p>AgroSahagún · Prototipo académico</p></main><script>window.onload=()=>window.print()<\/script></body></html>`;
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(new Blob([html], { type: "text/html;charset=utf-8;" }));
+      link.download = "certificado-agrosahagun.html";
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    $("#loginForm").onsubmit = async event => {
+      event.preventDefault();
+      try {
+        await signInWithEmailAndPassword(auth, $("#email").value, $("#password").value);
+      } catch {
+        toast("Correo o contraseña incorrectos.");
+      }
+    };
+
+    $("#registerButton").onclick = () => $("#registerDialog").showModal();
+    $("#closeRegister").onclick = () => $("#registerDialog").close();
+
+    $("#registerForm").onsubmit = async event => {
+      event.preventDefault();
+      try {
+        const result = await createUserWithEmailAndPassword(auth, $("#registerEmail").value, $("#registerPassword").value);
+        await updateProfile(result.user, { displayName: $("#registerName").value });
+        await setDoc(doc(db, "users", result.user.uid), {
+          name: $("#registerName").value,
+          email: $("#registerEmail").value,
+          role: "user",
+          createdAt: serverTimestamp()
+        });
+        $("#registerDialog").close();
+      } catch {
+        toast("No fue posible crear la cuenta.");
+      }
+    };
+
+    $("#logoutButton").onclick = () => signOut(auth);
+    $("#newFarmButton").onclick = () => $("#farmDialog").showModal();
+    $("#closeFarm").onclick = () => $("#farmDialog").close();
+
+    $("#farmForm").onsubmit = async event => {
+      event.preventDefault();
+      await addDoc(collection(db, "farms"), {
+        ownerId: currentUser.uid,
+        name: $("#farmName").value,
+        crop: $("#farmCrop").value,
+        area: Number($("#farmArea").value),
+        moisture: null,
+        createdAt: serverTimestamp()
+      });
+      $("#farmDialog").close();
+      event.target.reset();
+    };
+
+    $("#entryType").onchange = () => {
+      $("#valueArea").hidden = $("#entryType").value === "Observación";
+    };
+
+    $("#entryForm").onsubmit = async event => {
+      event.preventDefault();
+      const type = $("#entryType").value;
+      const farmId = $("#entryFarm").value;
+      const rawValue = type === "Observación" ? $("#entryNote").value : $("#entryValue").value;
+      const value = type === "Humedad del suelo" ? `${rawValue}%` : type === "Temperatura" ? `${rawValue} °C` : rawValue;
+
+      await addDoc(collection(db, "entries"), {
+        ownerId: currentUser.uid,
+        farmId, type, value,
+        note: $("#entryNote").value,
+        createdAt: serverTimestamp()
+      });
+
+      if (type === "Humedad del suelo") {
+        const farm = farms.find(item => item.id === farmId);
+        if (farm) await setDoc(doc(db, "farms", farmId), { ...farm, moisture: Number(rawValue), ownerId: farm.ownerId }, { merge: true });
+      }
+
+      event.target.reset();
+      toast("Registro guardado.");
+    };
+
+    $("#zoneForm").onsubmit = async event => {
+      event.preventDefault();
+      await addDoc(collection(db, "zones"), {
+        ownerId: currentUser.uid,
+        farmId: $("#zoneFarm").value,
+        lat: Number($("#zoneLat").value),
+        lng: Number($("#zoneLng").value),
+        radius: Number($("#zoneRadius").value),
+        note: $("#zoneNote").value,
+        createdAt: serverTimestamp()
+      });
+      event.target.reset();
+      toast("Zona guardada.");
+    };
+
+    $("#locationButton").onclick = () => {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          startMap();
+          setCoordinates(position.coords.latitude, position.coords.longitude);
+          map.setView([position.coords.latitude, position.coords.longitude], 16);
+        },
+        () => toast("No se pudo obtener la ubicación.")
+      );
+    };
+
+    $("#csvButton").onclick = downloadCsv;
+    $("#certificateButton").onclick = downloadCertificate;
+
+    $$(".nav button").forEach(button => {
+      button.onclick = () => {
+        $$(".view").forEach(view => view.classList.toggle("active", view.id === button.dataset.view));
+        $$(".nav button").forEach(item => item.classList.toggle("active", item === button));
+        if (button.dataset.view === "mapView") startMap();
+      };
+    });
+
+    onAuthStateChanged(auth, user => {
+      currentUser = user;
+      if (user) {
+        $("#login").hidden = true;
+        $("#app").hidden = false;
+        listenData();
+      } else {
+        $("#app").hidden = true;
+        $("#login").hidden = false;
+      }
+    });
   </script>
 </body>
 </html>
