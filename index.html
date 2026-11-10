@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#166534" />
+  <meta name="description" content="Prototipo de bajo nivel AgroSahagún para gestión de cultivos." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>AgroSahagún | Prototipo</title>
+</head>
+<body>
+  <main class="app-shell">
+    <section id="loginView" class="login-card">
+      <div class="brand-lockup"><span class="brand-mark">✦</span><div><p class="eyebrow">Sahagún · Sabana de Córdoba</p><h1>AgroSahagún</h1></div></div>
+      <p class="intro">Prototipo de bajo nivel para apoyar decisiones de pequeños productores.</p>
+      <form id="loginForm">
+        <label>Usuario<input id="username" autocomplete="username" required maxlength="60" placeholder="Escriba su usuario" /></label>
+        <label>Contraseña<input id="password" type="password" autocomplete="current-password" required minlength="6" placeholder="Escriba su contraseña" /></label>
+        <button type="submit">Iniciar sesión</button>
+      </form>
+      <p class="notice">¿No tiene una cuenta? <button id="showRegister" class="text-button" type="button">Crear cuenta local</button></p>
+      <p class="notice">Las cuentas locales sirven para probar el prototipo en este dispositivo. Para cuentas reales se debe configurar Firebase Authentication.</p>
+    </section>
+
+    <section id="appView" hidden>
+      <header class="topbar"><div class="brand-lockup"><span class="brand-mark">✦</span><div><strong>AgroSahagún</strong><small id="roleLabel"></small></div></div><div class="connection"><span id="syncDot"></span><span id="syncLabel">Verificando conexión…</span><button id="logoutButton" class="text-button">Salir</button></div></header>
+      <div class="layout">
+        <nav class="sidebar" aria-label="Navegación"><button class="nav-link active" data-view="dashboard">Resumen</button><button class="nav-link" data-view="farms">Fincas y cultivos</button><button class="nav-link" data-view="entries">Registrar datos</button><button class="nav-link" data-view="alerts">Alertas y recomendaciones</button><button class="nav-link admin-only" data-view="users">Usuarios</button><button class="nav-link" data-view="about">Guía del prototipo</button></nav>
+        <div class="content">
+          <section id="dashboard" class="view active"><div class="page-heading"><div><p class="eyebrow">Panel de control</p><h2>Situación de las fincas</h2></div><button id="syncButton" class="secondary">Sincronizar ahora</button></div><div id="kpis" class="kpi-grid"></div><section class="panel"><div class="panel-heading"><h3>Estado por cultivo</h3><span class="data-badge">DATOS DEMO / SIMULADOS</span></div><div id="cropStatus" class="crop-grid"></div></section><section class="panel"><h3>Actividad reciente</h3><div id="recentActivity" class="activity-list"></div></section></section>
+          <section id="farms" class="view"><div class="page-heading"><div><p class="eyebrow">Inventario productivo</p><h2>Fincas y cultivos</h2></div><button class="primary action-producer" data-open-modal="farmModal">+ Registrar finca</button></div><div id="farmList" class="farm-list"></div></section>
+          <section id="entries" class="view"><div class="page-heading"><div><p class="eyebrow">Captura manual</p><h2>Registrar observación</h2></div><span class="data-badge">INGRESO MANUAL</span></div><div class="form-layout"><form id="entryForm" class="panel form-panel"><h3>Lectura de campo</h3><p class="muted">Use esta opción cuando no haya conectividad o cuando la lectura provenga de un instrumento manual.</p><label>Finca<select id="entryFarm" required></select></label><label>Tipo de dato<select id="entryType"><option value="moisture">Humedad del suelo (%)</option><option value="weather">Clima (temperatura °C)</option><option value="note">Observación de campo</option></select></label><label id="valueField">Valor<input id="entryValue" type="number" step="0.1" min="0" required /></label><label>Fecha y hora<input id="entryTime" type="datetime-local" required /></label><label>Nota (opcional)<textarea id="entryNote" rows="3" maxlength="180" placeholder="Ej.: lectura tomada con medidor manual"></textarea></label><button type="submit">Guardar registro</button></form><aside class="panel"><h3>Origen de datos</h3><p><strong>Simulado/demo:</strong> los valores precargados sirven para probar la interfaz y no representan mediciones reales.</p><p><strong>Manual:</strong> un usuario registra una observación, que queda marcada con su origen.</p><p><strong>Sensor real:</strong> en una implementación futura, un gateway envía lecturas firmadas a Firebase o a una API, conservando identificador y fecha.</p></aside></div><section class="panel"><h3>Últimos registros</h3><div id="entryList" class="table-wrap"></div></section></section>
+          <section id="alerts" class="view"><div class="page-heading"><div><p class="eyebrow">Apoyo a decisiones</p><h2>Alertas y recomendaciones</h2></div></div><div id="alertList" class="alert-list"></div></section>
+          <section id="users" class="view admin-only"><div class="page-heading"><div><p class="eyebrow">Administración</p><h2>Roles de la demostración</h2></div></div><div class="panel"><table><thead><tr><th>Rol</th><th>Acceso principal</th></tr></thead><tbody><tr><td>Administrador</td><td>Consulta general y gestión de usuarios.</td></tr><tr><td>Productor / cliente</td><td>Registra sus fincas y observaciones.</td></tr><tr><td>Asesor técnico</td><td>Consulta datos y formula recomendaciones.</td></tr></tbody></table></div></section>
+          <section id="about" class="view"><div class="page-heading"><div><p class="eyebrow">Etapa 4</p><h2>Alcance y funcionamiento</h2></div></div><div class="guide-grid"><article class="panel"><h3>Arquitectura práctica</h3><ol><li>Aplicación web instalable: funciona en celular o computador.</li><li>Almacenamiento local: permite capturar registros con conectividad limitada.</li><li>Cola de sincronización: conserva cambios pendientes y los envía al recuperar internet.</li><li>Firebase opcional: autentica usuarios y centraliza datos cuando se configure.</li></ol></article><article class="panel"><h3>Sensores: simulación vs. realidad</h3><p>Este prototipo no afirma recibir lecturas físicas. Las tarjetas etiquetadas <strong>DEMO / SIMULADAS</strong> fueron creadas solo para evaluar el flujo.</p><p>Para operar con sensores reales, se requiere un sensor de humedad calibrado, microcontrolador/gateway, conectividad y una API segura. Cada lectura debe incluir finca, sensor, unidad, fecha y calidad de señal.</p></article><article class="panel"><h3>Uso ético y sostenible</h3><p>Solicitar consentimiento para datos productivos, limitar el acceso por rol, no reemplazar el criterio técnico y validar recomendaciones antes de aplicarlas. Priorizar registros útiles aun con baja conectividad.</p></article></div></section>
+        </div>
+      </div>
+    </section>
+  </main>
+  <dialog id="farmModal"><form id="farmForm" method="dialog"><div class="modal-heading"><h3>Registrar finca</h3><button class="text-button" value="cancel">Cerrar</button></div><label>Nombre de la finca<input id="farmName" required maxlength="80" placeholder="Ej.: El Porvenir" /></label><label>Vereda / ubicación<input id="farmPlace" required maxlength="80" placeholder="Ej.: Sahagún, Córdoba" /></label><label>Cultivo principal<input id="farmCrop" required maxlength="50" placeholder="Ej.: Maíz" /></label><label>Área aproximada (ha)<input id="farmArea" type="number" min="0.1" step="0.1" required /></label><button value="default">Guardar finca</button></form></dialog>
+  <dialog id="registerModal"><form id="registerForm"><div class="modal-heading"><h3>Crear cuenta local</h3><button class="text-button" type="button" id="closeRegister">Cerrar</button></div><label>Nombre completo<input id="registerName" required maxlength="60" /></label><label>Usuario<input id="registerUsername" required maxlength="60" autocomplete="username" /></label><label>Contraseña<input id="registerPassword" type="password" required minlength="6" autocomplete="new-password" /></label><label>Rol<select id="registerRole" required><option value="producer">Productor agrícola / cliente</option><option value="advisor">Asesor técnico</option><option value="admin">Administrador</option></select></label><button type="submit">Crear cuenta</button></form></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
